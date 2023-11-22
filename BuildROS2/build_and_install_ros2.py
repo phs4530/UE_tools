@@ -13,7 +13,7 @@ def build_ros2(
     allowed_spaces = [],
     not_allowed_spaces = [],
     pkgs = [],
-    remove = True,
+    remove = False,
     rosdistro = 'humble'
 ):
     start = time.time()
