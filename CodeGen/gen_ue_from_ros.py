@@ -24,7 +24,8 @@ logger = logging.getLogger(__name__)
 # default dependency pkgs. Commonly used pkgs
 # https://github.com/ros2/common_interfaces +  alpha
 # BASE_ROS_INSTALL_PATH = '/opt/ros/foxy/share'
-BASE_ROS_INSTALL_PATH = os.path.join(os.getcwd(), '../BuildROS2/ros2_ws/install')
+BASE_ROS_INSTALL_PATH = os.path.join(os.getcwd(), '/opt/ros/humble/share')
+# BASE_ROS_INSTALL_PATH = os.path.join(os.getcwd(), 'BuildROS2/ros2_ws/install')
 DEFAULT_DEPENDENCY_PKGS = {
     # 'action_msgs': '',
     'actionlib_msgs': '',
@@ -32,7 +33,7 @@ DEFAULT_DEPENDENCY_PKGS = {
     # 'unique_identifier_msgs': '',
     # 'diagnostic_msgs': '',
     # 'rosgraph_msgs': '',
-    # 'geometry_msgs': '',
+    'geometry_msgs': '',
     # 'nav_msgs': '',
     # 'sensor_msgs': '',
     # 'shape_msgs': '',
@@ -45,7 +46,8 @@ DEFAULT_DEPENDENCY_PKGS = {
     # 'pcl_msgs': '',
     #'ackermann_msgs': '',
     # 'example_interfaces': '',
-    # 'ue_msgs': ''
+    # 'custom_msg_without_dependency': ''
+    # 'custom_msg_test': ''
 }
 # DEFAULT_DEPENDENCY_PKGS = {os.path.join(BASE_ROS_INSTALL_PATH, k):v for (k, v) in DEFAULT_DEPENDENCY_PKGS.items()}
 
@@ -970,7 +972,7 @@ def get_types_cpp(target_paths, pkgs_name_mapping, name_mapping):
 ############################################
 
 def codegen(module, dependency, target, name_mapping):
-    file_loader = FileSystemLoader('templates')
+    file_loader = FileSystemLoader('CodeGen/templates')
     env = Environment(loader=file_loader)
     current_dir = os.getcwd()
 
@@ -1181,7 +1183,7 @@ def codegen(module, dependency, target, name_mapping):
                 file_cpp.close()
 
     # this seems not work property. Temporary relay on pre-commit hook on each repo.
-    os.system('./format.sh') #apply clang-format
+    os.system('CodeGen/format.sh') #apply clang-format
 
 if __name__ == "__main__":
 
